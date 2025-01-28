@@ -2,8 +2,16 @@ from labml_helpers.module import Module
 
 
 class GeneratorLoss(Module):
-    pass
+    def __int__(self):
+        pass
+
+    def forward(self, x):
+        pass
 
 
-def DiscriminatorLoss(Module):
-    pass
+class DiscriminatorLoss(Module):
+    def __int__(self):
+        pass
+
+    def forward(self, x):
+        pass

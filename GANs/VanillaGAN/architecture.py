@@ -7,11 +7,40 @@ from torchvision.utils import make_grid
 from torch.utils.data import DataLoader
 import numpy as np
 
+from labml_helpers.module import Module
 
-class Generator(nn.module):
+
+def weights_init(module):
     pass
+
+
+class Generator(Module):
+    """
+
+    """
+    def __int__(self):
+        super().__int__()
+        layer_size = [256, 512, 1024]
+        layers = []
+        prev_dim = 100
+
+        for size in layer_size:
+            layers = layers + [nn.Linear(prev_dim, size), nn.LeakyReLU(0.2)]
+            prev_dim = size
+
+        self.layers = nn.Sequential(*layers, nn.Linear(prev_dim, 28 * 28), nn.Tanh())
+
+        # Initialise the weights of all the MLP layers
+        self.apply(weights_init)
+
+    def forward(self, x):
+        return self.layers(x).view(x.shape[0], 1, 28, 28)
 
 
 class Discriminator(nn.module):
-    pass
+    def __int__(self):
+        pass
+
+    def forward(self, x):
+        pass
 
