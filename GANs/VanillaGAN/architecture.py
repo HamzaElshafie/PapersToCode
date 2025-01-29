@@ -18,11 +18,8 @@ def weights_init(module):
 
 
 class Generator(Module):
-    """
-
-    """
-    def __int__(self):
-        super().__int__()
+    def __init__(self):
+        super().__init__()
         layer_size = [256, 512, 1024]
         layers = []
         prev_dim = 100
@@ -40,9 +37,9 @@ class Generator(Module):
         return self.layers(x).view(x.shape[0], 1, 28, 28)
 
 
-class Discriminator(nn.module):
-    def __int__(self):
-        pass
+class Discriminator(Module):
+    def __init__(self):
+        super().__init__()
 
     def forward(self, x):
         pass
