@@ -11,7 +11,10 @@ from labml_helpers.module import Module
 
 
 def weights_init(module):
-    pass
+    class_name = module.__class.__name
+    if 'Linear' in class_name:
+        with torch.no_grad():
+            nn.init.normal_(module.weight, mean=0.0, std=0.02)
 
 
 class Generator(Module):
