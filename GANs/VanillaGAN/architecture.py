@@ -20,11 +20,11 @@ def weights_init(module):
 class Generator(Module):
     def __init__(self):
         super().__init__()
-        layer_size = [256, 512, 1024]
+        layer_sizes = [256, 512, 1024]
         layers = []
         prev_dim = 100
 
-        for size in layer_size:
+        for size in layer_sizes:
             layers = layers + [nn.Linear(prev_dim, size), nn.LeakyReLU(0.2)]
             prev_dim = size
 
@@ -40,7 +40,22 @@ class Generator(Module):
 class Discriminator(Module):
     def __init__(self):
         super().__init__()
+        layer_sizes = [1024, 512, 256]
+        layers = []
+        prev_dim = 28 * 28
+
+        for size in layer_sizes:
+            layers = layers + [nn.Linear(prev_dim, size), nn.LeakyReLU(0.2)]
+            prev_dim = size
+
+        self.layers = nn.Sequential(*layers, nn.Linear(prev_dim, 1))
+
+        self.apply(weights_init)
 
     def forward(self, x):
-        pass
+        return self.layers(x).view(x.shape[0], -1)
+
+
+
+
 
